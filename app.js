@@ -128,3 +128,62 @@ Solve Exercise 8 here:
 game.party.forEach(poke => {
   console.log(poke.name);
 })
+console.log('============================*9*==================================')
+/*
+Exercise 9
+1. Can you print out all the starter Pokémon from the `pokemon` array?
+2. Think about how you can identify a starter Pokémon and then log their names.
+
+
+Solve Exercise 9 here:
+*/
+for (const poke of pokemon) {
+  if (poke.starter === true) {
+    console.log(poke.name);
+  }
+}
+console.log('============================*10*==================================')
+/*
+Exercise 10
+Create a method called `catchPokemon` and add it to the `game` object. You should not need to edit the original game object directly. This method should:
+  - Accept an object as a parameter called `pokemonObj`
+  - Add the `pokemonObj` to the `game.party` array.
+  - not return anything
+
+After writing this method, call it and pass in a Pokemon object of your choice from the `pokemon` data to catch it.
+
+Solve Exercise 10 here:
+*/
+game.catchPokemon = function (pokemonObj) {
+  this.party.push(pokemonObj);
+};
+
+game.catchPokemon(pokemon[35]);
+//console.log(game)
+//console.log(game.party)
+console.log('============================*11*==================================')
+/*
+Exercise 11
+1. Copy the `catchPokemon` method that you just wrote above, and paste it below. Modify it so that it also decreases the number of pokeballs in your inventory each time you catch a Pokémon.
+2. How will you find and update the quantity of pokeballs in the `game.items` array?
+
+Tips:
+For this exercise, it's okay to have a negative number of pokeballs.
+After updating the method, call it and pass in a Pokemon object of your choice from the `pokemon` data to catch it.
+Also, log the `game.items` array to confirm that the pokeball quantity is being decremented.
+
+Solve Exercise 11 here:
+*/
+game.catchPokemon = function (pokemonObj) {
+  for (let item of this.items) {
+   if (item.name === 'pokeball') {
+    item.quantity -= 1;
+    break;
+   }
+}
+   this.party.push(pokemonObj);
+
+};
+
+game.catchPokemon(pokemon[0]);
+console.log(game.items);
