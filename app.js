@@ -255,3 +255,139 @@ game.partyCount = function() {
  return this.party.length;  
 };
 console.log(game.partyCount());
+console.log('============================*15*==================================')
+/*
+Exercise 15
+1. Now, complete gyms with a difficulty below 8. Reflect on how this is similar to or different from the previous gym exercises.
+(change the value of `complete` in the qualifying objects from false to true).
+
+Solve Exercise 15 here:
+*/
+
+for (const gym of game.gyms) {
+  if (gym.difficulty > 5 && gym.difficulty < 8 && gym.completed === false) {
+    gym.completed = true;
+  }
+}
+console.log(game.gyms);
+console.log('============================*16*==================================')
+/*
+Exercise 16
+1. Log the entire `game` object to the console. Take a moment to review the changes you've made throughout the exercises.
+
+
+Solve Exercise 16 here:
+*/
+console.log(game);
+console.log('============================*17*==================================')
+/*
+Exercise 17
+1. Arrange the Pokémon in `game.party` by their HP. The one with the highest HP should come first.
+2. You'll need to use the `.sort()` method. How does the compare function work in sorting numbers?
+
+Solve Exercise 17 here:*/
+
+game.party.sort((a, b) => (b.hp - a.hp));
+console.log(game.party);
+console.log('============================*18*==================================')
+/*
+Exercise 18
+Add a new property to the `game` object called `collection` and initialize its value to an empty array.
+
+Copy the `catchPokemon` method you wrote in Exercise Twelve and paste it below. Modify it so that:
+  - Ensure that no more than six Pokemon can be in the party at any time. 
+    Excess Pokemon should be placed in the `game.collection` array.
+  - It's up to you how to distribute Pokemon in a situation where more than six 
+    would be placed into the `game.party` array.
+
+Again, for this exercise, it's okay to have a negative number of pokeballs.
+
+After updating the method, use it by calling it and passing in a pokemon object of your choice from the `pokemon` data to catch it.
+
+Also, log the `game.items` array to confirm that the pokeball quantity is being decremented.
+
+Solve Exercise 18 here:
+*/
+
+game.collection = [];
+
+game.catchPokemon = function (pokemonObj) {
+  for (let item of this.items) {
+   if (item.name === 'pokeball') {
+    item.quantity -= 1;
+    break;
+   }
+}
+   this.party.push(pokemonObj);
+   while (this.party.length > 6) {
+    let lowestHpIndex = 0;
+    for (let i =1; i< this.party.length; i++) {
+      if (this.party[i].hp < this.party[lowestHpIndex].hp) {
+        lowestHpIndex =i;
+      }
+    }
+
+    const [removedPoke] = this.party.splice(lowestHpIndex, 1);
+    this.collection.push(removedPoke);
+    }
+
+};
+
+game.catchPokemon(pokemon[20]);
+console.log(game.items);
+console.log('Number of Pokemon in the Game Party', game.partyCount());
+console.log('============================*19*==================================')
+/*
+Exercise 19
+Copy the `catchPokemon` method that you just wrote above, and paste it below. The time has come to make it so that we cannot catch a Pokemon when we do not have any pokeballs to catch it with. 
+
+Modify the method so that if there are no pokeballs a message will be displayed that there are not enough pokeballs to catch the desired Pokemon.
+
+Also, ensure that the Pokemon isn't added to the `game.party` or the `game.collection`.
+
+Solve Exercise 19 here:
+*/
+
+
+game.catchPokemon = function(pokemonObj) {
+  // Find pokeball inventory item
+  let pokeballItem = null;
+  for (let item of this.items) {
+    if (item.name === 'pokeball') {
+      pokeballItem = item;
+      break;
+    }
+  }
+
+
+  if (!pokeballItem || pokeballItem.quantity < 1) {
+    console.log('There are not enough pokeballs to catch the desired Pokemon');
+    return; // Stop without adding the Pokemon
+  }
+
+  pokeballItem.quantity -= 1;
+
+  this.party.push(pokemonObj);
+
+  if (this.party.length > 6) {
+    let lowestHpIndex = 0;
+    for (let i = 1; i < this.party.length; i++) {
+      if (this.party[i].hp < this.party[lowestHpIndex].hp) {
+        lowestHpIndex = i;
+      }
+    }
+    const [removedPokemon] = this.party.splice(lowestHpIndex, 1);
+    this.collection.push(removedPokemon);
+  }
+};
+
+game.catchPokemon(pokemon[33]);
+console.log('party')
+console.log(game.party);
+console.log('Number of Pokemon in the Game Party', game.partyCount());
+console.log(game.items);
+console.log('collection')
+console.log(game.collection);
+game.catchPokemon(pokemon[32]);
+console.log(game.party);
+console.log(game.items);
