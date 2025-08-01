@@ -468,7 +468,7 @@ Dynamically construct an object with the existing `pokemon` data sorted by the d
 
 Log the object when it's constructed.
 
-Solve Exercise 21 here:
+Solve Exercise 21 here:*/
 
 const pokemonType = {};
 for (const poke of pokemon) {
